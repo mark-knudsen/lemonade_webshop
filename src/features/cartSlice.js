@@ -18,7 +18,7 @@ const cartSlice = createSlice({
         state.push({ id, name, price, quantity: 1 });
       }
     },
-    resetCart: (state, action) => [],
+    resetCart: () => [],
   },
 });
 

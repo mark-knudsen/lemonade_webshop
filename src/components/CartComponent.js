@@ -1,11 +1,10 @@
-// new code
 import React from 'react';
 
 const CartComponent = ({ cart }) => {
-  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
-  return (
+return (
     <div className="cart">
       <h2>Cart</h2>
       <p>Total Items: {totalItems}</p>

@@ -67,39 +67,36 @@ function App() {
 
   return (
     <div className="App">
+        {/* Carte button */}
+        <button className="cart-icon-button" onClick={openModal}>
+          🛒 {totalItems > 0 && <span className="cart-quantity">{totalItems}</span>}
+        </button>
 
-      {/* Carte button */}
-      <button className="cart-icon-button" onClick={openModal}>
-        🛒 {totalItems > 0 && <span className="cart-quantity">{totalItems}</span>}
-      </button>
-
-      {/* Lemonade list */}
-      <div className="lemonade-list">
-        <h2>Lemonades</h2>
-        {lemonades.map((lemonade) => (
-          <LemonadeComponent key={lemonade.id} lemonade={lemonade} onAddToCart={handleAddToCart} />
-        ))}
-      </div>
-
-      {/* Modal that shows the carte. */}
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
-            <CartComponent cart={cart} />
-            <p>Total Price: ${totalPrice.toFixed(2)}</p>
-            <button className="update-button" onClick={handleUpdateQuantities}>
-          Update Quantities
-          </button>
+        {/* Lemonade list */}     
+        <div  className="container">
+          <h2>Lemonades</h2> 
+          <div className="lemonade-list">
+            {lemonades.map((lemonade) => (
+              <LemonadeComponent key={lemonade.id} lemonade={lemonade} onAddToCart={handleAddToCart} />
+            ))}
           </div>
         </div>
-      )}
-      
+     
+
+        {/* Modal that shows the carte. */}
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closeModal}>&times;</span>
+              <CartComponent cart={cart} />
+              <p className='totalPrice'>Total Price: ${totalPrice.toFixed(2)}</p>
+              <button className="update-button" onClick={handleUpdateQuantities}>
+                checkout
+              </button>
+            </div>
+          </div>
+        )}      
     </div>
-
-
-
-
   );
 }
 
