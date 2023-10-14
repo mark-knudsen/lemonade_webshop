@@ -98,3 +98,72 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+
+
+/* more new code ... your existing styles ... */
+
+.lemonade-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  margin: 10px;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lemonade-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.lemonade-name {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.lemonade-price {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.add-to-cart-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-to-cart-button:hover {
+  background-color: #45a049;
+}
+
+
+/* Add these styles to your CSS file */
+.disabled-button {
+  background-color: #ccc; /* Change to your preferred disabled button color */
+  color: #999; /* Change to your preferred text color */
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+
+.update-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}

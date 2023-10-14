@@ -1,40 +1,12 @@
-/*
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from './features/cartSlice';
-import LemonadeComponent from './LemonadeComponent';
-import CartComponent from './CartComponent';
-import { fetchLemonades } from './features/lemonadeSlice';
-import './App.css';
-
-function App() {
-  const lemonades = useSelector((state) => state.lemonades);
-  const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchLemonades());
-  }, [dispatch]);
-
-  // ... rest of your component code remains the same
-}
-
-export default App;
-*/
-
-
-
-
-
-
-
 // new code
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from './features/cartSlice';
+import { addToCart, resetCart } from './features/cartSlice';
 import LemonadeComponent from './components/LemonadeComponent';
 import CartComponent from './components/CartComponent';
 import './App.css';
+import { fetchLemonades } from './features/lemonadesSlice';
+
 
 function App() {
   const lemonades = useSelector((state) => state.lemonades);
@@ -42,8 +14,17 @@ function App() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  
+  useEffect(() => {
+    dispatch(fetchLemonades());
+  }, [dispatch]);
+  
   const handleAddToCart = (lemonade) => {
     dispatch(addToCart(lemonade));
+  }; 
+
+  const handleResetCart = (lemonade) => {
+    dispatch(resetCart(lemonade));
   };
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
@@ -56,6 +37,33 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleUpdateQuantities = () => {
+    const updatedQuantities = cart.map(item => ({ id: item.id, quantity: item.quantity }));
+
+    fetch('http://localhost:3001/api/updateQuantities', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedQuantities),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.message);
+        // Close the modal
+        closeModal();
+        // Refresh lemonades data
+        dispatch(fetchLemonades());
+        // Reset the cart to an empty array
+        handleResetCart(updatedQuantities); // 'RESET_CART' is an example action type, replace it with your actual cart reset action type
+      })
+      .catch(error => {
+        console.error('Error updating quantities:', error);
+      });
+  };
+  
+  
 
   return (
     <div className="App">
@@ -80,11 +88,18 @@ function App() {
             <span className="close" onClick={closeModal}>&times;</span>
             <CartComponent cart={cart} />
             <p>Total Price: ${totalPrice.toFixed(2)}</p>
+            <button className="update-button" onClick={handleUpdateQuantities}>
+          Update Quantities
+          </button>
           </div>
         </div>
       )}
       
     </div>
+
+
+
+
   );
 }
 
