@@ -20,7 +20,12 @@ const cartSlice = createSlice({
     },
     resetCart: () => [],
   },
+  updateProfit: (state, action) => {
+    // Action payload should be the profit earned from the sale
+    state.profit += action.payload;
+  },
+  
 });
 
-export const { addToCart, resetCart } = cartSlice.actions;
+export const { addToCart, resetCart, updateProfit } = cartSlice.actions;
 export default cartSlice.reducer;
