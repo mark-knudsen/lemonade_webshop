@@ -11,6 +11,7 @@ import { fetchLemonades } from './features/lemonadesSlice';
 function App() {
   const lemonades = useSelector((state) => state.lemonades);
   const cart = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,6 +31,8 @@ function App() {
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
  /*  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0); */ /* not used anymore! */
 
+
+  /* functions to open and close the modal for the cart. */
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -38,6 +41,8 @@ function App() {
     setIsModalOpen(false);
   };
 
+
+  /* handleUpdateQuantities are used when clicking the Checkout button in the cart. */
   const handleUpdateQuantities = () => {
     const updatedQuantities = cart.map(item => ({ id: item.id, quantity: item.quantity }));
 
@@ -56,7 +61,7 @@ function App() {
         // Refresh lemonades data
         dispatch(fetchLemonades());
         // Reset the cart to an empty array
-        handleResetCart(updatedQuantities); // 'RESET_CART' is an example action type, replace it with your actual cart reset action type
+        handleResetCart(updatedQuantities);
       })
       .catch(error => {
         console.error('Error updating quantities:', error);
@@ -67,7 +72,7 @@ function App() {
 
   return (
     <div className="App">
-        {/* Carte button */}
+        {/* Cart button placed on the right top corner.*/}
         <button className="cart-icon-button" onClick={openModal}>
           🛒 {totalItems > 0 && <span className="cart-quantity">{totalItems}</span>}
         </button>
@@ -83,7 +88,7 @@ function App() {
         </div>
      
 
-        {/* Modal that shows the carte. */}
+        {/* Modal that shows the cart. */}
         {isModalOpen && (
           <div className="modal">
             <div className="modal-content">
