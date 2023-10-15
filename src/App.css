@@ -205,7 +205,7 @@
 .cart-item {
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 .cart-item-name {
@@ -234,4 +234,17 @@
 .cart-total-items,
 .cart-total-price {
   font-weight: bold;
+}
+
+.cart-remove-item {
+  background-color: #e70a0a;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.cart-remove-item:hover {
+  background-color: #9b0202;
 }
