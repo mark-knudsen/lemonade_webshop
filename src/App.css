@@ -200,3 +200,38 @@
 .update-button:hover {
   background-color: #45a049;
 }
+
+/* CSS */
+.cart-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.cart-item-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.cart-item-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-item-quantity,
+.cart-item-price {
+  margin: 0;
+}
+
+/* CSS */
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cart-total-items,
+.cart-total-price {
+  font-weight: bold;
+}

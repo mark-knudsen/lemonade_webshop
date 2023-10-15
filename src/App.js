@@ -28,7 +28,7 @@ function App() {
   };
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+ /*  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0); */ /* not used anymore! */
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -89,9 +89,9 @@ function App() {
             <div className="modal-content">
               <span className="close" onClick={closeModal}>&times;</span>
               <CartComponent cart={cart} />
-              <p className='totalPrice'>Total Price: ${totalPrice.toFixed(2)}</p>
+           {/*    <p className='totalPrice'>Total Price: ${totalPrice.toFixed(2)}</p> */}
               <button className="update-button" onClick={handleUpdateQuantities}>
-                checkout
+                CHECKOUT
               </button>
             </div>
           </div>

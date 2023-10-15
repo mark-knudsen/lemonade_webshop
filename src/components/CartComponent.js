@@ -7,15 +7,19 @@ const totalPrice = cart.reduce((total, item) => total + item.price * item.quanti
 return (
     <div className="cart">
       <h2>Cart</h2>
-      <p>Total Items: {totalItems}</p>
-      <p>Total Price: ${totalPrice.toFixed(2)}</p>
-      {cart.map((item) => (
-        <div key={item.id}>
-          <p>{item.name}</p>
-          <p>Quantity: {item.quantity}</p>
-          <p>Price: ${item.price * item.quantity}</p>
+    {cart.map((item) => (
+        <div key={item.id} className="cart-item">
+          <p className="cart-item-name">{item.name}</p>
+          <div className="cart-item-details">
+            <p className="cart-item-quantity">Quantity: {item.quantity}</p>
+            <p className="cart-item-price">Price: ${item.price * item.quantity}</p>
+          </div>
         </div>
       ))}
+     <div className="cart-total">
+        <p className="cart-total-items">Total Items: {totalItems}</p>
+        <p className="cart-total-price">Total Price: ${totalPrice.toFixed(2)}</p>
+      </div>
     </div>
   );
 };
