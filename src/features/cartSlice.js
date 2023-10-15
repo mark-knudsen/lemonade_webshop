@@ -1,4 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit';
+
+// Create an async thunk for updating quantities
+export const updateQuantities = createAsyncThunk('cart/updateQuantities', async (quantities) => {
+  const response = await fetch('http://localhost:3001/api/updateQuantities', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(quantities),
+  });
+
+  const data = await response.json();
+  return data;
+});
+
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -27,6 +42,11 @@ const cartSlice = createSlice({
   updateProfit: (state, action) => {
     // Action payload should be the profit earned from the sale
     state.profit += action.payload;
+  },
+  extraReducers: (builder) => {
+    builder.addCase(updateQuantities.fulfilled, (state, action) => {
+      // Handle the API response here, if needed
+    });
   },
   
 });

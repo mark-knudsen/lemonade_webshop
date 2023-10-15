@@ -1,7 +1,7 @@
 // new code
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart, resetCart } from './features/cartSlice';
+import { addToCart, resetCart, updateQuantities  } from './features/cartSlice';
 import LemonadeComponent from './components/LemonadeComponent';
 import CartComponent from './components/CartComponent';
 import './App.css';
@@ -24,9 +24,9 @@ function App() {
     dispatch(addToCart(lemonade));
   }; 
 
-  const handleResetCart = (lemonade) => {
+  /* const handleResetCart = (lemonade) => {
     dispatch(resetCart(lemonade));
-  };
+  }; */
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
  /*  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0); */ /* not used anymore! */
@@ -43,27 +43,17 @@ function App() {
 
 
   /* handleUpdateQuantities are used when clicking the Checkout button in the cart. */
-  const handleUpdateQuantities = () => {
-    const updatedQuantities = cart.map(item => ({ id: item.id, quantity: item.quantity }));
-
-    fetch('http://localhost:3001/api/updateQuantities', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedQuantities),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.message);
-        // Close the modal
+   const handleUpdateQuantities = () => {
+    const updatedQuantities = cart.map((item) => ({ id: item.id, quantity: item.quantity }));
+    dispatch(updateQuantities(updatedQuantities))
+      .then(() => {
+        // Handle success if needed
         closeModal();
-        // Refresh lemonades data
-        dispatch(fetchLemonades());
-        // Reset the cart to an empty array
-        handleResetCart(updatedQuantities);
+        dispatch(fetchLemonades()); // Refresh lemonades data
+        dispatch(resetCart()); // Reset the cart to an empty array
       })
-      .catch(error => {
+      .catch((error) => {
+        // Handle error if needed
         console.error('Error updating quantities:', error);
       });
   };
