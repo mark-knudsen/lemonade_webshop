@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchLemonades = createAsyncThunk('lemonades/fetchLemonades', async () => {
-  const response = await axios.get('http://localhost:3001/api/lemonades'); // Replace 'YOUR_API_ENDPOINT' with your actual API endpoint URL
+  const response = await axios.get('http://localhost:3001/api/lemonades');
   return response.data;
 });
 

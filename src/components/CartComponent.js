@@ -18,7 +18,7 @@ return (
     {cart.map((item) => (
         <div key={item.id} className="cart-item">
           <p className="cart-item-name">{item.name}</p>
-          <div className="cart-item-details">
+          <div className="cart-item-details">                
             <p className="cart-item-quantity">Amounts: {item.quantity}</p>
             <p className="cart-item-price">Price: ${item.price * item.quantity}</p>
           </div>         
