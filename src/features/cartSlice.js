@@ -39,10 +39,10 @@ const cartSlice = createSlice({
     },
     resetCart: () => [],
   },
-  updateProfit: (state, action) => {
+/*   updateProfit: (state, action) => {
     // Action payload should be the profit earned from the sale
     state.profit += action.payload;
-  },
+  }, */
   extraReducers: (builder) => {
     builder.addCase(updateQuantities.fulfilled, (state, action) => {
       // Handle the API response here, if needed
@@ -51,5 +51,5 @@ const cartSlice = createSlice({
   
 });
 
-export const { addToCart, resetCart,removeFromCart, updateProfit } = cartSlice.actions;
+export const { addToCart, resetCart,removeFromCart/* , updateProfit */ } = cartSlice.actions;
 export default cartSlice.reducer;

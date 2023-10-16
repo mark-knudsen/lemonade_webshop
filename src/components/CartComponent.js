@@ -1,10 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeFromCart } from '../features/cartSlice';
 
 const CartComponent = ({ cart }) => {
 const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
 const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+const totalProfit = useSelector((state) => state.profit);
 
 const dispatch = useDispatch();
 
@@ -29,6 +30,9 @@ return (
      <div className="cart-total">
         <p className="cart-total-items">Total Items: {totalItems}</p>
         <p className="cart-total-price">Total Price: ${totalPrice.toFixed(2)}</p>
+      </div><div className="cart-total">
+        <p className="cart-total-items">Total profit: {totalProfit}</p>
+       
       </div>
     </div>
   );

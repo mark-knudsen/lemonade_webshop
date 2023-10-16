@@ -6,16 +6,17 @@ import LemonadeComponent from './components/LemonadeComponent';
 import CartComponent from './components/CartComponent';
 import './App.css';
 import { fetchLemonades } from './features/lemonadesSlice';
-
+import { updateProfit } from './features/profitSlice'; 
 
 function App() {
   const lemonades = useSelector((state) => state.lemonades);
   const cart = useSelector((state) => state.cart);
+  const totalProfit = useSelector((state) => state.profit); // Accessing totalProfit from the Redux store
 
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  
+  // Use the useEffect hook to call the fetchLemonades() in the dispatch().
   useEffect(() => {
     dispatch(fetchLemonades());
   }, [dispatch]);
@@ -25,7 +26,7 @@ function App() {
   }; 
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
- /*  const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0); */ /* not used anymore! */
+  /* const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0); */ /* not used anymore! */
 
 
   /* functions to open and close the modal for the cart. */
@@ -39,14 +40,25 @@ function App() {
 
 
   /* handleUpdateQuantities are used when clicking the Checkout button in the cart. */
-   const handleUpdateQuantities = () => {
+  const handleUpdateQuantities = () => {
     const updatedQuantities = cart.map((item) => ({ id: item.id, quantity: item.quantity }));
+  
+    // Calculate the total price
+    const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  
+    // Calculate the profit (which is the same as the total price)
+    const profitAmount = totalPrice;
+  
+    // Dispatch the updateQuantities async thunk
     dispatch(updateQuantities(updatedQuantities))
       .then(() => {
-        // Handle success if needed
-        closeModal();
+        // Handle success if needed  
+        
+        dispatch(updateProfit(profitAmount)); // Dispatch the updateProfit async thunk to update the profit slice
         dispatch(fetchLemonades()); // Refresh lemonades data
         dispatch(resetCart()); // Reset the cart to an empty array
+         
+        closeModal(); // close the modal
       })
       .catch((error) => {
         // Handle error if needed
@@ -58,6 +70,12 @@ function App() {
 
   return (
     <div className="App">
+        {/* Displaying totalProfit at the top */}
+        <div className="total-profit">
+          Total profit for the webshop: ${totalProfit.toFixed(2)}
+        </div>  
+
+
         {/* Cart button placed on the right top corner.*/}
         <button className="cart-icon-button" onClick={openModal}>
           🛒 {totalItems > 0 && <span className="cart-quantity">{totalItems}</span>}
