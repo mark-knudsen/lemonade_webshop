@@ -30,10 +30,10 @@ return (
      <div className="cart-total">
         <p className="cart-total-items">Total Items: {totalItems}</p>
         <p className="cart-total-price">Total Price: ${totalPrice.toFixed(2)}</p>
-      </div><div className="cart-total">
-        <p className="cart-total-items">Total profit: {totalProfit}</p>
-       
       </div>
+      {/* <div className="cart-total">
+        <p className="cart-total-items">Total profit: {totalProfit}</p>       
+      </div> */}
     </div>
   );
 };
